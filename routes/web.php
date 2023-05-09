@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\UtilityController;
+use App\Http\Controllers\GameController;
+use App\Http\Controllers\RequestController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,5 +31,20 @@ Route::get('/hello', fn() => view('hello', [
 
 Route::get('/', fn() => view('index'));
 Route::get('/curriculum', fn() => view('curriculum'));
+
+// 世界の時間
+Route::get('/world-time', [UtilityController::class, 'worldtime']);
+
+// おみくじ
+Route::get('/omikuji', [GameController::class, 'omikuji']);
+
+// モンティ・ホール問題
+Route::get('/monty-hall', [GameController::class, 'montyhall']);
+
+// Form
+Route::get('/form', [RequestController::class, 'form']);
+
+// query-request
+Route::get('/query-string', [RequestController::class, 'queryString']);
 
 
