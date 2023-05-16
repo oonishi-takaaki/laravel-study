@@ -3,6 +3,7 @@
 use App\Http\Controllers\UtilityController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\RequestController;
+use App\Http\Controllers\EventController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,4 +48,16 @@ Route::get('/form', [RequestController::class, 'form']);
 // query-request
 Route::get('/query-string', [RequestController::class, 'queryString']);
 
+//ID
+Route::get('/users/{id}', [RequestController::class, 'profile'])->name('profile');
+Route::get('/route-link', [RequestController::class, 'routeLink']);
+//
+Route::get('/product/{category}/{year}', [RequestController::class, 'productsArchive']);
+
+//ログイン画面表示
+Route::get('/login', [RequestController::class, 'loginform']);
+Route::post('/login', [RequestController::class, 'login'])->name('login');
+
+//イベント
+Route::resource('/event', EventController::class,)->only(['index', 'create', 'store']);
 
