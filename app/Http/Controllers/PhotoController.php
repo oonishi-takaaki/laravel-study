@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
-class EventController extends Controller
+class PhotoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,7 +20,7 @@ class EventController extends Controller
      */
     public function create()
     {
-        return view('events.create');
+        return view('photos.create');
     }
 
     /**
@@ -28,17 +28,20 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        $title = $request->get('title');
-        Log::debug('イベント名：　'.$request->get('title'));
-        return to_route('events.create')->with('success', $title.'を登録しました。');
+        $savedFilePath = $request->file('image')->store('photos', 'public');
+        Log::debug($savedFilePath);
+        $filename = pathinfo($savedFilePath, PATHINFO_BASENAME);
+        Log::debug($filename);
+        return to_route('photos.show', ['photo' => $filename] )->with('success','アップロードしました。');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    //画像の表示
+    public function show($filename)
     {
-        //
+        return view('photos.show', ['filename' => $filename]);
     }
 
     /**

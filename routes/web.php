@@ -4,6 +4,9 @@ use App\Http\Controllers\UtilityController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\HiLowController;
+use App\Http\Controllers\PhotoController;
+use Illuminate\Contracts\Cache\Store;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -59,5 +62,10 @@ Route::get('/login', [RequestController::class, 'loginform']);
 Route::post('/login', [RequestController::class, 'login'])->name('login');
 
 //イベント
-Route::resource('/event', EventController::class,)->only(['index', 'create', 'store']);
+Route::resource('/events', EventController::class,)->only(['create', 'store']);
 
+Route::get('/hi-low', [HiLowController::class, 'index'])->name('hi-low');
+Route::post('/hi-low', [HiLowController::class, 'result']);
+
+//ファイル管理
+Route::resource('/photos', PhotoController::class)->only('create', 'store','show');
