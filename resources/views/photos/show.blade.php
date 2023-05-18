@@ -8,4 +8,10 @@
 
     <img src="{{ asset('storage/photos/'.$filename )}}" alt="">
 
+    <form action="{{ route('photos.destroy', ['photo' => $filename]) }}" method="POST">
+        @csrf
+        @method('DELETE')
+        <button type="submit">削除</button>
+    </form>
+
 @endsection
