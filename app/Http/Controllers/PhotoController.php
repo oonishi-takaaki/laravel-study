@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\Finder\Iterator\FilenameFilterIterator;
 
 class PhotoController extends Controller
 {
@@ -69,5 +71,10 @@ class PhotoController extends Controller
     {
         Storage::disk('public')->delete('photos/'.$filename);
         return to_route('photos.create')->with('success','削除しました。');
+    }
+
+    public function download($filename)
+    {
+        return Storage::disk('public')->download('photos/'.$filename, 'アップロード.jpg');
     }
 }
